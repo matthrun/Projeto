@@ -1,0 +1,27 @@
+import requests
+from bs4 import BeautifulSoup
+
+# URL da página com os resultados (substitua pela URL correta)
+url = 'https://games.crossfit.com/'
+
+# Fazer a requisição
+response = requests.get(url)
+
+# Criar o objeto BeautifulSoup
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# Encontrar dados desejados (exemplo)
+# Isso dependerá da estrutura HTML da página
+results = soup.find_all('div', class_='athlete-class')  # Altere conforme necessário
+
+# Extrair informações
+athlete_data = []
+for result in results:
+    athlete_name = result.find('span', class_='name-class').text  # Altere conforme necessário
+    age = result.find('span', class_='age-class').text  # Altere conforme necessário
+    country = result.find('span', class_='country-class').text  # Altere conforme necessário
+    athlete_data.append({'name': athlete_name, 'age': age, 'country': country})
+
+# Exibir os dados coletados
+for athlete in athlete_data:
+    print(f"Athlete: {athlete['name']}, Age: {athlete['age']}, Country: {athlete['country']}")
